@@ -1,0 +1,7 @@
+*.vcd
+*.txt
+btnscope
+wbregs
+netuart
+memscope
+obj-pc

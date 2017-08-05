@@ -1,0 +1,6 @@
+*.xdc
+obj_dir
+wbscope.v
+loads6.sh
+*.ucf
+s6test.v

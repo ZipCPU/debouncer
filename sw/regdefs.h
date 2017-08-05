@@ -1,18 +1,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Filename:	unbounced.v
+// Filename:	regdefs.h
 //
 // Project:	Debouncer project, a learning project to learn the impact
 //		of bouncing on logic within your device.
 //
-// Purpose:	To measure the "bouncing" characteristics of an FPGA input
-//		device, such as a button.  Specifically, we'll measure here:
-//
-//	1. How long it takes from an initial change until things settle out
-//
-//	2. How many times the data changes between the initial input and the
-//		final bounce/settling time.
-//
+// Purpose:	To define the registers found within the debugging bus on this
+//		project, as well as to locate them in the address space.  This
+//	file is used by any C++ or other high level language program interacting
+//	with the project.
 //
 // Creator:	Dan Gisselquist, Ph.D.
 //		Gisselquist Technology, LLC
@@ -43,49 +39,31 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //
-`default_nettype	none
-//
-module	unbounced(i_clk, i_reset, i_in, o_transitions, o_max_clock);
-	parameter	NIN=2;
-	input	wire			i_clk, i_reset;
-	input	wire	[(NIN-1):0]	i_in;
-	output	reg	[31:0]		o_transitions, o_max_clock;
+#ifndef	REGDEFS_H
+#define	REGDEFS_H
 
-	reg			triggered;
-	reg	[31:0]		clock;
-	reg	[(NIN-1):0]	q_in, r_in, r_last;
+#define	R_VERSION       0x00002040
+#define	R_SOMETHING	0x00002044
+#define	R_BUSERR       	0x00002048
+#define	R_PWRCOUNT	0x0000204c
+#define	R_INT		0x00002050
+#define	R_TRANSITIONS	0x00002058
+#define	R_MAXCLOCKS	0x0000205c
+#define	R_DEBOUNCED	0x00002060
 
-	always @(posedge i_clk)
-		q_in <= i_in;
-	always @(posedge i_clk)
-		r_in <= q_in;
-	always @(posedge i_clk)
-		r_last <= r_in;
+#define	R_SCOPE		0x00002080
+#define	R_SCOPD		0x00002084
 
-	always @(posedge i_clk)
-		if (i_reset)
-			triggered <= 1'b0;
-		else if (r_last != r_in)
-			triggered <= 1'b1;
+typedef	struct {
+	unsigned	m_addr;
+	const char	*m_name;
+} REGNAME;
 
-	always @(posedge i_clk)
-		if (i_reset)
-			clock <= 0;
-		else if ((triggered)&&(!clock[31]))
-			clock <= clock + 1'b1;
+extern	const	REGNAME	*bregs;
+extern	const	int	NREGS;
+// #define	NREGS	(sizeof(bregs)/sizeof(bregs[0]))
 
-	initial	o_max_clock = 0;
-	always @(posedge i_clk)
-		if (i_reset)
-			o_max_clock <= 0;
-		else if (r_last != r_in)
-			o_max_clock <= clock;
+extern	unsigned	addrdecode(const char *v);
+extern	const	char *addrname(const unsigned v);
 
-	initial	o_transitions = 0;
-	always @(posedge i_clk)
-		if (i_reset)
-			o_transitions <= 0;
-		else if (r_last != r_in)
-			o_transitions <= o_transitions + 1'b1;
-
-endmodule
+#endif	// REGDEFS_H
