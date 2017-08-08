@@ -3,7 +3,7 @@
 ## Filename: 	bench/rtl/Makefile
 ##
 ## Project:	Debouncer project, a learning project to learn the impact
-//		of bouncing on logic within your device.
+##		of bouncing on logic within your device.
 ##
 ## Purpose:	This Makefile guides the translation of the project RTL files
 ##		into a library (Vtestbus__ALL.a) file that can then be linked

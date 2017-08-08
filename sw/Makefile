@@ -3,7 +3,7 @@
 ## Filename:	sw/Makefile
 ##
 ## Project:	Debouncer project, a learning project to learn the impact
-//		of bouncing on logic within your device.
+##		of bouncing on logic within your device.
 ##
 ## Purpose:	
 ## Targets:

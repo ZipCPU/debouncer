@@ -1,18 +1,13 @@
 ################################################################################
 ##
-## Filename: 	Makefile
+## Filename:	Makefile
 ##
 ## Project:	Debouncer project, a learning project to learn the impact
 ##		of bouncing on logic within your device.
 ##
-## Purpose:	To coordinate the build of documentation PDFs from their
-##		LaTeX sources.
+## Purpose:	A master project makefile.  It tries to build all targets
+##		within the project, mostly by directing subdirectory makes.
 ##
-##	Targets include:
-##		all		Builds all documents
-##
-##		gpl-3.0.pdf	Builds the GPL license these files are released
-##					under.
 ##
 ## Creator:	Dan Gisselquist, Ph.D.
 ##		Gisselquist Technology, LLC
@@ -43,25 +38,22 @@
 ################################################################################
 ##
 ##
-all:	gpl
-pdf:	gpl
-DSRC := src
+.PHONY: all
+all: sw
+	echo "This project does not have a test-bench simulation.  Make"
+	echo "therefore doesnt produce anything interesting"
+	echo
+	echo "To build this project, include the Verilog files from the rtl,"
+	echo "rtl/hexbus, and bench/rtl directory into your Xilinx design."
+	echo "You'll also need to create a .xdc file and add it to the project."
+	echo "This .xdc file should be created from the master XDC file that"
+	echo "comes with your board, only the UART and button wires should be"
+	echo "renamed to match the toplevel bench/rtl/testbus.v file."
+	echo
+	echo "The software to support this test is found within the sw/"
+	echo "directory.  If youve gotten this far, that software has been"
+	echo "built."
 
-.PHONY: gpl
-gpl: gpl-3.0.pdf
-
-gpl-3.0.pdf: $(DSRC)/gpl-3.0.tex
-	latex $(DSRC)/gpl-3.0.tex
-	latex $(DSRC)/gpl-3.0.tex
-	dvips -q -z -t letter -P pdf -o gpl-3.0.ps gpl-3.0.dvi
-	ps2pdf -dAutoRotatePages=/All gpl-3.0.ps gpl-3.0.pdf
-	rm gpl-3.0.dvi gpl-3.0.log gpl-3.0.aux gpl-3.0.ps
-
-.PHONY: clean
-clean:
-	rm -f $(DSRC)/*.dvi $(DSRC)/*.log
-	rm -f $(DSRC)/*.aux $(DSRC)/*.toc
-	rm -f $(DSRC)/*.lot $(DSRC)/*.lof
-	rm -f $(DSRC)/*.out spec.ps spec.pdf
-	rm -f gpl-3.0.pdf
-
+.PHONY: sw
+sw:
+	make --no-print-directory -C sw
