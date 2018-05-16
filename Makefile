@@ -40,19 +40,19 @@
 ##
 .PHONY: all
 all: sw
-	echo "This project does not have a test-bench simulation.  Make"
-	echo "therefore doesnt produce anything interesting"
-	echo
-	echo "To build this project, include the Verilog files from the rtl,"
-	echo "rtl/hexbus, and bench/rtl directory into your Xilinx design."
-	echo "You'll also need to create a .xdc file and add it to the project."
-	echo "This .xdc file should be created from the master XDC file that"
-	echo "comes with your board, only the UART and button wires should be"
-	echo "renamed to match the toplevel bench/rtl/testbus.v file."
-	echo
-	echo "The software to support this test is found within the sw/"
-	echo "directory.  If youve gotten this far, that software has been"
-	echo "built."
+	@echo "This project does not have a test-bench simulation.  Make"
+	@echo "therefore doesnt produce anything interesting"
+	@echo
+	@echo "To build this project, include the Verilog files from the rtl,"
+	@echo "rtl/hexbus, and bench/rtl directory into your Xilinx design."
+	@echo "You'll also need to create a .xdc file and add it to the project."
+	@echo "This .xdc file should be created from the master XDC file that"
+	@echo "comes with your board, only the UART and button wires should be"
+	@echo "renamed to match the toplevel bench/rtl/testbus.v file."
+	@echo
+	@echo "The software to support this test is found within the sw/"
+	@echo "directory.  If youve gotten this far, that software has been"
+	@echo "built."
 
 .PHONY: sw
 sw:
