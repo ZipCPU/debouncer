@@ -43,10 +43,10 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (C) 2015,2017, Gisselquist Technology, LLC
+// Copyright (C) 2015,2018, Gisselquist Technology, LLC
 //
 // This program is free software (firmware): you can redistribute it and/or
-// modify it under the terms of the GNU General Public License as published
+// modify it under the terms of  the GNU General Public License as published
 // by the Free Software Foundation, either version 3 of the License, or (at
 // your option) any later version.
 //
@@ -493,5 +493,10 @@ module wbscopc(i_data_clk, i_ce, i_trigger, i_data,
 		else
 			br_level_interrupt<= (bw_stopped)&&(!bw_disable_trigger);
 
+	// Make Verilator happy
+	// verilator lint_off UNUSED
+	wire	[3+(26-HOLDOFFBITS)-1:0] unused;
+	assign	unused = { i_wb_data[30:28], i_wb_data[25:HOLDOFFBITS] };
+	// verilator lint_on  UNUSED
 
 endmodule
