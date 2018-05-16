@@ -56,7 +56,7 @@ const	REGNAME	raw_bregs[] = {
 	{ R_MAXCLOCKS	  ,	"MAXCLOCKS"	},
 	{ R_SCOPE         ,	"SCOPE"   	},
 	{ R_SCOPD         ,	"SCOPD"   	},
-	{ R_RSTCOUNTER    ,	"RESET"     	}
+	{ R_PWRCOUNT      ,	"RESET"     	}
 };
 
 // REGSDEFS.CPP.INSERT for any bus masters
